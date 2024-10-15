@@ -45,6 +45,33 @@ class Tree {
 
     return this.#buildTreeRecu(array, 0, array.length - 1);
   }
+
+  #insertRecur(node, value) {
+    if (node === null) {
+      return new Node(value);
+    }
+
+    // Don't insert duplicate values
+    if (value === node.data) {
+      return node;
+    }
+
+    if (value < node.data) {
+      node.left = this.#insertRecur(node.left, value);
+    }
+
+    if (value > node.data) {
+      node.right = this.#insertRecur(node.right, value);
+    }
+
+    return node;
+  }
+
+  insert(value) {
+    let currNode = this.root;
+
+    this.#insertRecur(currNode, value);
+  }
 }
 
 export { Tree, prettyPrint };
